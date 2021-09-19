@@ -2,36 +2,36 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DC">
   <DataContextMoniker Name="/DCDataContext" />
   <nestedChildShapes>
-    <classShape Id="e25df247-003e-426d-bd89-dae55ef70821" absoluteBounds="2, 1.5, 2, 1.5785953776041666">
-      <DataClassMoniker Name="/DCDataContext/eDetalleVenta" />
-      <nestedChildShapes>
-        <elementListCompartment Id="68a318d9-1a4d-4111-a2c5-51c996bef33f" absoluteBounds="2.015, 1.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="19b1219b-9630-4d5b-8454-9a8c0775c33c" absoluteBounds="2.375, 4.375, 2, 1.7708968098958331">
-      <DataClassMoniker Name="/DCDataContext/eProducto" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a8f17eb5-2626-4ba6-8244-fdaf1586726d" absoluteBounds="2.39, 4.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(3.1875 : 4.375); (3.1875 : 3.07859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DCDataContext/eProducto/Producto_DetalleVenta" />
-      <nodes>
-        <classShapeMoniker Id="19b1219b-9630-4d5b-8454-9a8c0775c33c" />
-        <classShapeMoniker Id="e25df247-003e-426d-bd89-dae55ef70821" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="beb6970f-a4a9-450e-aded-c698d2186b25" absoluteBounds="5.5, 2.25, 2, 1.7708968098958331">
+    <classShape Id="c3994aa4-bcb2-4b86-8bd9-e75d96987e08" absoluteBounds="0.75, 4.375, 2, 1.9631982421875005">
       <DataClassMoniker Name="/DCDataContext/eVenta" />
       <nestedChildShapes>
-        <elementListCompartment Id="67721471-3162-46f9-a5ed-760be6589035" absoluteBounds="5.515, 2.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="340b424f-de41-4251-8c40-b409470a4cef" absoluteBounds="0.765, 4.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.5 : 2.66429768880208); (4 : 2.66429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <classShape Id="ea648dfd-4125-47c2-8097-fb8fa4f3cc6f" absoluteBounds="3.5, 0.875, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/DCDataContext/eDetalleVenta" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bbcd15da-979a-44cd-b7f5-db2dc1a16625" absoluteBounds="3.515, 1.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e987baec-9d6a-4d3b-ba1f-ced9756eb702" absoluteBounds="0.75, 0.875, 2, 1.5785953776041664">
+      <DataClassMoniker Name="/DCDataContext/eProducto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="af137fc6-36b3-4a9e-b723-1a614430df09" absoluteBounds="0.765, 1.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 5.35659912109375); (4.5 : 5.35659912109375); (4.5 : 2.45359537760417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DCDataContext/eVenta/Venta_DetalleVenta" />
       <nodes>
-        <classShapeMoniker Id="beb6970f-a4a9-450e-aded-c698d2186b25" />
-        <classShapeMoniker Id="e25df247-003e-426d-bd89-dae55ef70821" />
+        <classShapeMoniker Id="c3994aa4-bcb2-4b86-8bd9-e75d96987e08" />
+        <classShapeMoniker Id="ea648dfd-4125-47c2-8097-fb8fa4f3cc6f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 1.66429768880208); (3.5 : 1.66429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/DCDataContext/eProducto/Producto_DetalleVenta" />
+      <nodes>
+        <classShapeMoniker Id="e987baec-9d6a-4d3b-ba1f-ced9756eb702" />
+        <classShapeMoniker Id="ea648dfd-4125-47c2-8097-fb8fa4f3cc6f" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>
