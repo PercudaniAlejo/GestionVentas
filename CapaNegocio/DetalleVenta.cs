@@ -6,7 +6,7 @@ using CapaDatos;
 
 namespace CapaNegocio
 {
-    class DetalleVenta
+    public class DetalleVenta
     {
         #region VM
         private int idDetalleVenta;
@@ -65,14 +65,13 @@ namespace CapaNegocio
             detalle.idVenta = this.venta.IdVenta;
             detalle.precio = this.Precio;
         }
-
         public static IQueryable Buscar(string buscado)
         {
             buscado = buscado.ToLower();
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
             var filas = from x in dc.eDetalleVenta
                         where x.id.ToString().Contains(buscado) ||
-                        x.eProducto.nombre.Contains(buscado) ||
+                        x.eProducto.eTipoPrenda.tipo.Contains(buscado) ||
                         x.eVenta.nombreCliente.Contains(buscado) ||
                         x.eVenta.apellidoCliente.Contains(buscado) ||
                         x.eVenta.fecha.ToString().Contains(buscado) ||
@@ -82,7 +81,7 @@ namespace CapaNegocio
                             ID = x.id,
                             Cliente = x.eVenta.nombreCliente + ", " + x.eVenta.apellidoCliente.ToUpper(),
                             Fecha = x.eVenta.fecha,
-                            Producto = x.eProducto.nombre,
+                            Producto = x.eProducto.eTipoPrenda.tipo + " en " + x.eProducto.eColor.colorName,
                             Precio = "$ " + (int)x.precio,
                         };
             return filas;

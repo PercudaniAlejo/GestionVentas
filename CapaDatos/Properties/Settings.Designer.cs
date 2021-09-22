@@ -33,5 +33,16 @@ namespace CapaDatos.Properties {
                 return ((string)(this["GestionVentasConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-RR1BBOV\\SQLEXPRESS;Initial Catalog=GestionVentas;Persist Secu" +
+            "rity Info=True;User ID=AlejoDB")]
+        public string GestionVentasConnectionString1 {
+            get {
+                return ((string)(this["GestionVentasConnectionString1"]));
+            }
+        }
     }
 }

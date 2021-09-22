@@ -6,39 +6,47 @@ using CapaDatos;
 
 namespace CapaNegocio
 {
-    class Producto
+    public class Producto
     {
         #region VM
         private int idProducto;
-        private string nombre;
         private double precio;
         private string descripcion;
+        private ColorPrenda colorName;
+        private TipoPrenda tipo;
         #endregion
 
         #region PROPERTIES
         public int IdProducto { get => idProducto; set => idProducto = value; }
-        public string Nombre { get => nombre; set => nombre = value; }
         public double Precio { get => precio; set => precio = value; }
         public string Descipcion { get => descripcion; set => descripcion = value; }
+        public ColorPrenda ColorName { get => colorName; set => colorName = value; }
+        public TipoPrenda Tipo { get => tipo; set => tipo = value; }
         #endregion
 
         #region BUILDERS
-        public Producto(int idProducto, string nombre, double precio, string descripcion) {
+        public Producto(int idProducto, double precio, string descripcion, ColorPrenda colorName, TipoPrenda tipo) {
             this.idProducto = idProducto;
-            this.nombre = nombre;
             this.precio = precio;
             this.descripcion = descripcion;
+            this.colorName = colorName;
+            this.tipo = tipo;
         }
-
         public Producto() {
             idProducto = 0;
-            nombre = "";
             precio = 0.0;
             descripcion = "";
+            colorName = null;
+            tipo = null;
         }
         #endregion
 
         #region METHODS
+
+        public override string ToString() {
+            return string.Concat(tipo + " - " + colorName);
+        }
+        
         public void Guardar() {
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
             eProducto prod = new eProducto();
@@ -57,9 +65,10 @@ namespace CapaNegocio
         public void CargarFilaProducto(eProducto prod)
         {
             prod.id = this.IdProducto;
-            prod.nombre = this.Nombre;
             prod.precio = this.Precio;
             prod.descripcion = this.Descipcion;
+            prod.idColor = this.colorName.Id;
+            prod.idTipoPrenda = this.tipo.Id;
         }
 
         public static IQueryable Buscar(string buscado) {
@@ -67,19 +76,39 @@ namespace CapaNegocio
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
             var filas = from x in dc.eProducto
                         where x.id.ToString().Contains(buscado) ||
-                        x.nombre.Contains(buscado) ||
-                        x.precio.ToString().Contains(buscado)
+                        x.precio.ToString().Contains(buscado) ||
+                        x.eTipoPrenda.tipo.Contains(buscado) ||
+                        x.eColor.id.ToString().Contains(buscado)
                         select new
                         {
                             ID = x.id,
-                            Cliente = x.nombre,
+                            Prenda = x.eTipoPrenda.tipo,
+                            Color = x.eColor.colorName,
                             Precio = "$ " + (int)x.precio,
                             Descripcion = x.descripcion
                         };
             return filas;
         }
+
+        public void Eliminar()
+        {
+            DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
+            var encontrado = (from x in dc.eProducto where x.id == this.idProducto select x).FirstOrDefault();
+            if (encontrado != null)
+            {
+                dc.eProducto.DeleteOnSubmit(encontrado);
+                dc.SubmitChanges();
+            }
+            else
+                throw new Exception("No se pudo eliminar el producto, el id " + this.idProducto + " no fue encontrado.");
+        }
+        public static Producto BuscarPorId(int idBuscado) {
+            DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
+            var enc = (from x in dc.eProducto where x.id == idBuscado select x).FirstOrDefault();
+            if (enc != null)
+                return new Producto(enc.id, enc.precio, enc.descripcion, ColorPrenda.BuscarPorId(enc.idColor), TipoPrenda.BuscarPorId(enc.idTipoPrenda));
+            return null;
+        }
         #endregion
-
-
     }
 }

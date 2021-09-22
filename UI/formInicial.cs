@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using CapaNegocio;
 namespace UI
 {
     public partial class formInicial : Form
@@ -14,6 +14,12 @@ namespace UI
         public formInicial()
         {
             InitializeComponent();
+        }
+
+        private void btnProductos_Click(object sender, EventArgs e)
+        {
+            Productos f = new Productos();
+            f.ShowDialog();
         }
     }
 }

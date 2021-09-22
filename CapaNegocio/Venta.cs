@@ -6,7 +6,7 @@ using CapaDatos;
 
 namespace CapaNegocio
 {
-    class Venta
+    public class Venta
     {
         #region VM
         private int idVenta;
@@ -15,7 +15,6 @@ namespace CapaNegocio
         private DateTime fecha;
         private string observaciones;
         private double precio;
-
         #endregion
 
         #region PROPERTIES
