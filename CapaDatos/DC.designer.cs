@@ -136,7 +136,11 @@ namespace CapaDatos
 		
 		private string _apellidoCliente;
 		
-		private EntitySet<eDetalleVenta> _eDetalleVenta;
+		private int _idProducto;
+		
+		private EntitySet<eDetalleVenta> _DetalleVenta;
+		
+		private EntityRef<eProducto> _Producto;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -154,11 +158,14 @@ namespace CapaDatos
     partial void OnprecioChanged();
     partial void OnapellidoClienteChanging(string value);
     partial void OnapellidoClienteChanged();
+    partial void OnidProductoChanging(int value);
+    partial void OnidProductoChanged();
     #endregion
 		
 		public eVenta()
 		{
-			this._eDetalleVenta = new EntitySet<eDetalleVenta>(new Action<eDetalleVenta>(this.attach_eDetalleVenta), new Action<eDetalleVenta>(this.detach_eDetalleVenta));
+			this._DetalleVenta = new EntitySet<eDetalleVenta>(new Action<eDetalleVenta>(this.attach_DetalleVenta), new Action<eDetalleVenta>(this.detach_DetalleVenta));
+			this._Producto = default(EntityRef<eProducto>);
 			OnCreated();
 		}
 		
@@ -282,16 +289,74 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_DetalleVenta", Storage="_eDetalleVenta", ThisKey="id", OtherKey="idVenta")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idProducto", DbType="Int NOT NULL")]
+		public int idProducto
+		{
+			get
+			{
+				return this._idProducto;
+			}
+			set
+			{
+				if ((this._idProducto != value))
+				{
+					if (this._Producto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidProductoChanging(value);
+					this.SendPropertyChanging();
+					this._idProducto = value;
+					this.SendPropertyChanged("idProducto");
+					this.OnidProductoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_DetalleVenta", Storage="_DetalleVenta", ThisKey="id", OtherKey="idVenta")]
 		public EntitySet<eDetalleVenta> eDetalleVenta
 		{
 			get
 			{
-				return this._eDetalleVenta;
+				return this._DetalleVenta;
 			}
 			set
 			{
-				this._eDetalleVenta.Assign(value);
+				this._DetalleVenta.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_Venta", Storage="_Producto", ThisKey="idProducto", OtherKey="id", IsForeignKey=true)]
+		public eProducto eProducto
+		{
+			get
+			{
+				return this._Producto.Entity;
+			}
+			set
+			{
+				eProducto previousValue = this._Producto.Entity;
+				if (((previousValue != value) 
+							|| (this._Producto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Producto.Entity = null;
+						previousValue.eVenta.Remove(this);
+					}
+					this._Producto.Entity = value;
+					if ((value != null))
+					{
+						value.eVenta.Add(this);
+						this._idProducto = value.id;
+					}
+					else
+					{
+						this._idProducto = default(int);
+					}
+					this.SendPropertyChanged("eProducto");
+				}
 			}
 		}
 		
@@ -315,13 +380,13 @@ namespace CapaDatos
 			}
 		}
 		
-		private void attach_eDetalleVenta(eDetalleVenta entity)
+		private void attach_DetalleVenta(eDetalleVenta entity)
 		{
 			this.SendPropertyChanging();
 			entity.eVenta = this;
 		}
 		
-		private void detach_eDetalleVenta(eDetalleVenta entity)
+		private void detach_DetalleVenta(eDetalleVenta entity)
 		{
 			this.SendPropertyChanging();
 			entity.eVenta = null;
@@ -338,7 +403,7 @@ namespace CapaDatos
 		
 		private string _colorName;
 		
-		private EntitySet<eProducto> _eProducto;
+		private EntitySet<eProducto> _Producto;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -352,7 +417,7 @@ namespace CapaDatos
 		
 		public eColor()
 		{
-			this._eProducto = new EntitySet<eProducto>(new Action<eProducto>(this.attach_eProducto), new Action<eProducto>(this.detach_eProducto));
+			this._Producto = new EntitySet<eProducto>(new Action<eProducto>(this.attach_Producto), new Action<eProducto>(this.detach_Producto));
 			OnCreated();
 		}
 		
@@ -396,16 +461,16 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Color_Producto", Storage="_eProducto", ThisKey="id", OtherKey="idColor")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Color_Producto", Storage="_Producto", ThisKey="id", OtherKey="idColor")]
 		public EntitySet<eProducto> eProducto
 		{
 			get
 			{
-				return this._eProducto;
+				return this._Producto;
 			}
 			set
 			{
-				this._eProducto.Assign(value);
+				this._Producto.Assign(value);
 			}
 		}
 		
@@ -429,13 +494,13 @@ namespace CapaDatos
 			}
 		}
 		
-		private void attach_eProducto(eProducto entity)
+		private void attach_Producto(eProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.eColor = this;
 		}
 		
-		private void detach_eProducto(eProducto entity)
+		private void detach_Producto(eProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.eColor = null;
@@ -456,9 +521,9 @@ namespace CapaDatos
 		
 		private double _precio;
 		
-		private EntityRef<eVenta> _eVenta;
+		private EntityRef<eVenta> _Venta;
 		
-		private EntityRef<eProducto> _eProducto;
+		private EntityRef<eProducto> _Producto;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -476,8 +541,8 @@ namespace CapaDatos
 		
 		public eDetalleVenta()
 		{
-			this._eVenta = default(EntityRef<eVenta>);
-			this._eProducto = default(EntityRef<eProducto>);
+			this._Venta = default(EntityRef<eVenta>);
+			this._Producto = default(EntityRef<eProducto>);
 			OnCreated();
 		}
 		
@@ -512,7 +577,7 @@ namespace CapaDatos
 			{
 				if ((this._idVenta != value))
 				{
-					if (this._eVenta.HasLoadedOrAssignedValue)
+					if (this._Venta.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -536,7 +601,7 @@ namespace CapaDatos
 			{
 				if ((this._idProducto != value))
 				{
-					if (this._eProducto.HasLoadedOrAssignedValue)
+					if (this._Producto.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -569,26 +634,26 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_DetalleVenta", Storage="_eVenta", ThisKey="idVenta", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_DetalleVenta", Storage="_Venta", ThisKey="idVenta", OtherKey="id", IsForeignKey=true)]
 		public eVenta eVenta
 		{
 			get
 			{
-				return this._eVenta.Entity;
+				return this._Venta.Entity;
 			}
 			set
 			{
-				eVenta previousValue = this._eVenta.Entity;
+				eVenta previousValue = this._Venta.Entity;
 				if (((previousValue != value) 
-							|| (this._eVenta.HasLoadedOrAssignedValue == false)))
+							|| (this._Venta.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._eVenta.Entity = null;
+						this._Venta.Entity = null;
 						previousValue.eDetalleVenta.Remove(this);
 					}
-					this._eVenta.Entity = value;
+					this._Venta.Entity = value;
 					if ((value != null))
 					{
 						value.eDetalleVenta.Add(this);
@@ -603,26 +668,26 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DetalleVenta", Storage="_eProducto", ThisKey="idProducto", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DetalleVenta", Storage="_Producto", ThisKey="idProducto", OtherKey="id", IsForeignKey=true)]
 		public eProducto eProducto
 		{
 			get
 			{
-				return this._eProducto.Entity;
+				return this._Producto.Entity;
 			}
 			set
 			{
-				eProducto previousValue = this._eProducto.Entity;
+				eProducto previousValue = this._Producto.Entity;
 				if (((previousValue != value) 
-							|| (this._eProducto.HasLoadedOrAssignedValue == false)))
+							|| (this._Producto.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._eProducto.Entity = null;
+						this._Producto.Entity = null;
 						previousValue.eDetalleVenta.Remove(this);
 					}
-					this._eProducto.Entity = value;
+					this._Producto.Entity = value;
 					if ((value != null))
 					{
 						value.eDetalleVenta.Add(this);
@@ -674,11 +739,13 @@ namespace CapaDatos
 		
 		private int _idTipoPrenda;
 		
-		private EntitySet<eDetalleVenta> _eDetalleVenta;
+		private EntitySet<eVenta> _Venta;
 		
-		private EntityRef<eColor> _eColor;
+		private EntitySet<eDetalleVenta> _DetalleVenta;
 		
-		private EntityRef<eTipoPrenda> _eTipoPrenda;
+		private EntityRef<eColor> _Color;
+		
+		private EntityRef<eTipoPrenda> _TipoPrenda;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -698,9 +765,10 @@ namespace CapaDatos
 		
 		public eProducto()
 		{
-			this._eDetalleVenta = new EntitySet<eDetalleVenta>(new Action<eDetalleVenta>(this.attach_eDetalleVenta), new Action<eDetalleVenta>(this.detach_eDetalleVenta));
-			this._eColor = default(EntityRef<eColor>);
-			this._eTipoPrenda = default(EntityRef<eTipoPrenda>);
+			this._Venta = new EntitySet<eVenta>(new Action<eVenta>(this.attach_Venta), new Action<eVenta>(this.detach_Venta));
+			this._DetalleVenta = new EntitySet<eDetalleVenta>(new Action<eDetalleVenta>(this.attach_DetalleVenta), new Action<eDetalleVenta>(this.detach_DetalleVenta));
+			this._Color = default(EntityRef<eColor>);
+			this._TipoPrenda = default(EntityRef<eTipoPrenda>);
 			OnCreated();
 		}
 		
@@ -775,7 +843,7 @@ namespace CapaDatos
 			{
 				if ((this._idColor != value))
 				{
-					if (this._eColor.HasLoadedOrAssignedValue)
+					if (this._Color.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -799,7 +867,7 @@ namespace CapaDatos
 			{
 				if ((this._idTipoPrenda != value))
 				{
-					if (this._eTipoPrenda.HasLoadedOrAssignedValue)
+					if (this._TipoPrenda.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -812,39 +880,52 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DetalleVenta", Storage="_eDetalleVenta", ThisKey="id", OtherKey="idProducto")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_Venta", Storage="_Venta", ThisKey="id", OtherKey="idProducto")]
+		public EntitySet<eVenta> eVenta
+		{
+			get
+			{
+				return this._Venta;
+			}
+			set
+			{
+				this._Venta.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DetalleVenta", Storage="_DetalleVenta", ThisKey="id", OtherKey="idProducto")]
 		public EntitySet<eDetalleVenta> eDetalleVenta
 		{
 			get
 			{
-				return this._eDetalleVenta;
+				return this._DetalleVenta;
 			}
 			set
 			{
-				this._eDetalleVenta.Assign(value);
+				this._DetalleVenta.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Color_Producto", Storage="_eColor", ThisKey="idColor", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Color_Producto", Storage="_Color", ThisKey="idColor", OtherKey="id", IsForeignKey=true)]
 		public eColor eColor
 		{
 			get
 			{
-				return this._eColor.Entity;
+				return this._Color.Entity;
 			}
 			set
 			{
-				eColor previousValue = this._eColor.Entity;
+				eColor previousValue = this._Color.Entity;
 				if (((previousValue != value) 
-							|| (this._eColor.HasLoadedOrAssignedValue == false)))
+							|| (this._Color.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._eColor.Entity = null;
+						this._Color.Entity = null;
 						previousValue.eProducto.Remove(this);
 					}
-					this._eColor.Entity = value;
+					this._Color.Entity = value;
 					if ((value != null))
 					{
 						value.eProducto.Add(this);
@@ -859,26 +940,26 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TipoPrenda_Producto", Storage="_eTipoPrenda", ThisKey="idTipoPrenda", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TipoPrenda_Producto", Storage="_TipoPrenda", ThisKey="idTipoPrenda", OtherKey="id", IsForeignKey=true)]
 		public eTipoPrenda eTipoPrenda
 		{
 			get
 			{
-				return this._eTipoPrenda.Entity;
+				return this._TipoPrenda.Entity;
 			}
 			set
 			{
-				eTipoPrenda previousValue = this._eTipoPrenda.Entity;
+				eTipoPrenda previousValue = this._TipoPrenda.Entity;
 				if (((previousValue != value) 
-							|| (this._eTipoPrenda.HasLoadedOrAssignedValue == false)))
+							|| (this._TipoPrenda.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._eTipoPrenda.Entity = null;
+						this._TipoPrenda.Entity = null;
 						previousValue.eProducto.Remove(this);
 					}
-					this._eTipoPrenda.Entity = value;
+					this._TipoPrenda.Entity = value;
 					if ((value != null))
 					{
 						value.eProducto.Add(this);
@@ -913,13 +994,25 @@ namespace CapaDatos
 			}
 		}
 		
-		private void attach_eDetalleVenta(eDetalleVenta entity)
+		private void attach_Venta(eVenta entity)
 		{
 			this.SendPropertyChanging();
 			entity.eProducto = this;
 		}
 		
-		private void detach_eDetalleVenta(eDetalleVenta entity)
+		private void detach_Venta(eVenta entity)
+		{
+			this.SendPropertyChanging();
+			entity.eProducto = null;
+		}
+		
+		private void attach_DetalleVenta(eDetalleVenta entity)
+		{
+			this.SendPropertyChanging();
+			entity.eProducto = this;
+		}
+		
+		private void detach_DetalleVenta(eDetalleVenta entity)
 		{
 			this.SendPropertyChanging();
 			entity.eProducto = null;
@@ -936,7 +1029,7 @@ namespace CapaDatos
 		
 		private string _tipo;
 		
-		private EntitySet<eProducto> _eProducto;
+		private EntitySet<eProducto> _Producto;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -950,7 +1043,7 @@ namespace CapaDatos
 		
 		public eTipoPrenda()
 		{
-			this._eProducto = new EntitySet<eProducto>(new Action<eProducto>(this.attach_eProducto), new Action<eProducto>(this.detach_eProducto));
+			this._Producto = new EntitySet<eProducto>(new Action<eProducto>(this.attach_Producto), new Action<eProducto>(this.detach_Producto));
 			OnCreated();
 		}
 		
@@ -994,16 +1087,16 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TipoPrenda_Producto", Storage="_eProducto", ThisKey="id", OtherKey="idTipoPrenda")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TipoPrenda_Producto", Storage="_Producto", ThisKey="id", OtherKey="idTipoPrenda")]
 		public EntitySet<eProducto> eProducto
 		{
 			get
 			{
-				return this._eProducto;
+				return this._Producto;
 			}
 			set
 			{
-				this._eProducto.Assign(value);
+				this._Producto.Assign(value);
 			}
 		}
 		
@@ -1027,13 +1120,13 @@ namespace CapaDatos
 			}
 		}
 		
-		private void attach_eProducto(eProducto entity)
+		private void attach_Producto(eProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.eTipoPrenda = this;
 		}
 		
-		private void detach_eProducto(eProducto entity)
+		private void detach_Producto(eProducto entity)
 		{
 			this.SendPropertyChanging();
 			entity.eTipoPrenda = null;

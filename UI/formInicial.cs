@@ -21,5 +21,11 @@ namespace UI
             Productos f = new Productos();
             f.ShowDialog();
         }
+
+        private void btnVentas_Click(object sender, EventArgs e)
+        {
+            formVentas f = new formVentas();
+            f.ShowDialog();
+        }
     }
 }

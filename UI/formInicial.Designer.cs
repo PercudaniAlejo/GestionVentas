@@ -30,11 +30,12 @@ namespace UI
         private void InitializeComponent()
         {
             this.btnProductos = new System.Windows.Forms.Button();
+            this.btnVentas = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnProductos
             // 
-            this.btnProductos.Location = new System.Drawing.Point(12, 75);
+            this.btnProductos.Location = new System.Drawing.Point(12, 88);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(157, 64);
             this.btnProductos.TabIndex = 0;
@@ -42,11 +43,22 @@ namespace UI
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
+            // btnVentas
+            // 
+            this.btnVentas.Location = new System.Drawing.Point(12, 12);
+            this.btnVentas.Name = "btnVentas";
+            this.btnVentas.Size = new System.Drawing.Size(157, 64);
+            this.btnVentas.TabIndex = 1;
+            this.btnVentas.Text = "VENTAS";
+            this.btnVentas.UseVisualStyleBackColor = true;
+            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
+            // 
             // formInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(184, 209);
+            this.Controls.Add(this.btnVentas);
             this.Controls.Add(this.btnProductos);
             this.Name = "formInicial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -58,6 +70,7 @@ namespace UI
         #endregion
 
         private System.Windows.Forms.Button btnProductos;
+        private System.Windows.Forms.Button btnVentas;
     }
 }
 

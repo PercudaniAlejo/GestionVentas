@@ -68,6 +68,12 @@
     <Compile Include="formProductos.Designer.cs">
       <DependentUpon>formProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="formVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formVentas.Designer.cs">
+      <DependentUpon>formVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="formColor.resx">
@@ -81,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formProductos.resx">
       <DependentUpon>formProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formVentas.resx">
+      <DependentUpon>formVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

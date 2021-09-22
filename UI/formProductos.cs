@@ -132,7 +132,7 @@ namespace UI
             cmbPrenda.DataSource = TipoPrenda.Buscar();
         }
         private void Buscar() {
-            dgvProductos.DataSource = Producto.Buscar(txtBuscar.Text);
+            dgvProductos.DataSource = Producto.BuscarIQ(txtBuscar.Text);
         }
         private void SetDatosModificar() {
             numPrecio.Value = (decimal)obj.Precio;

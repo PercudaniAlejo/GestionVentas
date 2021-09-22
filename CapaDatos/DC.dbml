@@ -8,14 +8,16 @@
       <Column Name="observaciones" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
       <Column Name="precio" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="apellidoCliente" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Venta_DetalleVenta" Member="eDetalleVenta" ThisKey="id" OtherKey="idVenta" Type="eDetalleVenta" />
+      <Column Name="idProducto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Venta_DetalleVenta" Member="eDetalleVenta" Storage="_DetalleVenta" ThisKey="id" OtherKey="idVenta" Type="eDetalleVenta" />
+      <Association Name="Producto_Venta" Member="eProducto" Storage="_Producto" ThisKey="idProducto" OtherKey="id" Type="eProducto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Color" Member="eColor">
     <Type Name="eColor">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="colorName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Color_Producto" Member="eProducto" ThisKey="id" OtherKey="idColor" Type="eProducto" />
+      <Association Name="Color_Producto" Member="eProducto" Storage="_Producto" ThisKey="id" OtherKey="idColor" Type="eProducto" />
     </Type>
   </Table>
   <Table Name="dbo.DetalleVenta" Member="eDetalleVenta">
@@ -24,8 +26,8 @@
       <Column Name="idVenta" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="idProducto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="precio" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Association Name="Venta_DetalleVenta" Member="eVenta" ThisKey="idVenta" OtherKey="id" Type="eVenta" IsForeignKey="true" />
-      <Association Name="Producto_DetalleVenta" Member="eProducto" ThisKey="idProducto" OtherKey="id" Type="eProducto" IsForeignKey="true" />
+      <Association Name="Venta_DetalleVenta" Member="eVenta" Storage="_Venta" ThisKey="idVenta" OtherKey="id" Type="eVenta" IsForeignKey="true" />
+      <Association Name="Producto_DetalleVenta" Member="eProducto" Storage="_Producto" ThisKey="idProducto" OtherKey="id" Type="eProducto" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Producto" Member="eProducto">
@@ -35,16 +37,17 @@
       <Column Name="descripcion" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
       <Column Name="idColor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="idTipoPrenda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Producto_DetalleVenta" Member="eDetalleVenta" ThisKey="id" OtherKey="idProducto" Type="eDetalleVenta" />
-      <Association Name="Color_Producto" Member="eColor" ThisKey="idColor" OtherKey="id" Type="eColor" IsForeignKey="true" />
-      <Association Name="TipoPrenda_Producto" Member="eTipoPrenda" ThisKey="idTipoPrenda" OtherKey="id" Type="eTipoPrenda" IsForeignKey="true" />
+      <Association Name="Producto_Venta" Member="eVenta" Storage="_Venta" ThisKey="id" OtherKey="idProducto" Type="eVenta" />
+      <Association Name="Producto_DetalleVenta" Member="eDetalleVenta" Storage="_DetalleVenta" ThisKey="id" OtherKey="idProducto" Type="eDetalleVenta" />
+      <Association Name="Color_Producto" Member="eColor" Storage="_Color" ThisKey="idColor" OtherKey="id" Type="eColor" IsForeignKey="true" />
+      <Association Name="TipoPrenda_Producto" Member="eTipoPrenda" Storage="_TipoPrenda" ThisKey="idTipoPrenda" OtherKey="id" Type="eTipoPrenda" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.TipoPrenda" Member="eTipoPrenda">
     <Type Name="eTipoPrenda">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="tipo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="TipoPrenda_Producto" Member="eProducto" ThisKey="id" OtherKey="idTipoPrenda" Type="eProducto" />
+      <Association Name="TipoPrenda_Producto" Member="eProducto" Storage="_Producto" ThisKey="id" OtherKey="idTipoPrenda" Type="eProducto" />
     </Type>
   </Table>
 </Database>

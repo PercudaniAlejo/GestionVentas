@@ -33,14 +33,8 @@ namespace UI
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnColor = new System.Windows.Forms.Button();
-            this.btnPrendas = new System.Windows.Forms.Button();
             this.Precio = new System.Windows.Forms.Label();
             this.numPrecio = new System.Windows.Forms.NumericUpDown();
-            this.cmbPrenda = new System.Windows.Forms.ComboBox();
-            this.cmbColor = new System.Windows.Forms.ComboBox();
-            this.Prenda = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.txtDescripcion = new System.Windows.Forms.RichTextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -49,6 +43,12 @@ namespace UI
             this.pnlDatosProducto = new System.Windows.Forms.Panel();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
+            this.Prenda = new System.Windows.Forms.Label();
+            this.cmbPrenda = new System.Windows.Forms.ComboBox();
+            this.btnPrendas = new System.Windows.Forms.Button();
+            this.btnColor = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbColor = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrecio)).BeginInit();
             this.pnlDatosProducto.SuspendLayout();
@@ -88,7 +88,7 @@ namespace UI
             this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this.btnModificar.Location = new System.Drawing.Point(137, 279);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(105, 47);
+            this.btnModificar.Size = new System.Drawing.Size(104, 47);
             this.btnModificar.TabIndex = 2;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
@@ -106,30 +106,6 @@ namespace UI
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
-            // btnColor
-            // 
-            this.btnColor.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnColor.Location = new System.Drawing.Point(145, 74);
-            this.btnColor.Name = "btnColor";
-            this.btnColor.Size = new System.Drawing.Size(27, 21);
-            this.btnColor.TabIndex = 4;
-            this.btnColor.Text = "+";
-            this.btnColor.UseVisualStyleBackColor = true;
-            this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // btnPrendas
-            // 
-            this.btnPrendas.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnPrendas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrendas.Location = new System.Drawing.Point(145, 124);
-            this.btnPrendas.Name = "btnPrendas";
-            this.btnPrendas.Size = new System.Drawing.Size(27, 21);
-            this.btnPrendas.TabIndex = 5;
-            this.btnPrendas.Text = "+";
-            this.btnPrendas.UseVisualStyleBackColor = true;
-            this.btnPrendas.Click += new System.EventHandler(this.btnPrendas_Click);
             // 
             // Precio
             // 
@@ -151,40 +127,6 @@ namespace UI
             this.numPrecio.Name = "numPrecio";
             this.numPrecio.Size = new System.Drawing.Size(125, 20);
             this.numPrecio.TabIndex = 8;
-            // 
-            // cmbPrenda
-            // 
-            this.cmbPrenda.FormattingEnabled = true;
-            this.cmbPrenda.Location = new System.Drawing.Point(14, 124);
-            this.cmbPrenda.Name = "cmbPrenda";
-            this.cmbPrenda.Size = new System.Drawing.Size(125, 21);
-            this.cmbPrenda.TabIndex = 9;
-            // 
-            // cmbColor
-            // 
-            this.cmbColor.FormattingEnabled = true;
-            this.cmbColor.Location = new System.Drawing.Point(14, 75);
-            this.cmbColor.Name = "cmbColor";
-            this.cmbColor.Size = new System.Drawing.Size(125, 21);
-            this.cmbColor.TabIndex = 10;
-            // 
-            // Prenda
-            // 
-            this.Prenda.AutoSize = true;
-            this.Prenda.Location = new System.Drawing.Point(13, 108);
-            this.Prenda.Name = "Prenda";
-            this.Prenda.Size = new System.Drawing.Size(41, 13);
-            this.Prenda.TabIndex = 11;
-            this.Prenda.Text = "Prenda";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 59);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Color";
             // 
             // btnAceptar
             // 
@@ -279,6 +221,64 @@ namespace UI
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
+            // Prenda
+            // 
+            this.Prenda.AutoSize = true;
+            this.Prenda.Location = new System.Drawing.Point(13, 108);
+            this.Prenda.Name = "Prenda";
+            this.Prenda.Size = new System.Drawing.Size(41, 13);
+            this.Prenda.TabIndex = 11;
+            this.Prenda.Text = "Prenda";
+            // 
+            // cmbPrenda
+            // 
+            this.cmbPrenda.FormattingEnabled = true;
+            this.cmbPrenda.Location = new System.Drawing.Point(14, 124);
+            this.cmbPrenda.Name = "cmbPrenda";
+            this.cmbPrenda.Size = new System.Drawing.Size(125, 21);
+            this.cmbPrenda.TabIndex = 9;
+            // 
+            // btnPrendas
+            // 
+            this.btnPrendas.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnPrendas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrendas.Location = new System.Drawing.Point(145, 124);
+            this.btnPrendas.Name = "btnPrendas";
+            this.btnPrendas.Size = new System.Drawing.Size(27, 21);
+            this.btnPrendas.TabIndex = 5;
+            this.btnPrendas.Text = "+";
+            this.btnPrendas.UseVisualStyleBackColor = true;
+            this.btnPrendas.Click += new System.EventHandler(this.btnPrendas_Click);
+            // 
+            // btnColor
+            // 
+            this.btnColor.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnColor.Location = new System.Drawing.Point(145, 74);
+            this.btnColor.Name = "btnColor";
+            this.btnColor.Size = new System.Drawing.Size(27, 21);
+            this.btnColor.TabIndex = 4;
+            this.btnColor.Text = "+";
+            this.btnColor.UseVisualStyleBackColor = true;
+            this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 59);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(31, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Color";
+            // 
+            // cmbColor
+            // 
+            this.cmbColor.FormattingEnabled = true;
+            this.cmbColor.Location = new System.Drawing.Point(14, 75);
+            this.cmbColor.Name = "cmbColor";
+            this.cmbColor.Size = new System.Drawing.Size(125, 21);
+            this.cmbColor.TabIndex = 10;
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -313,14 +313,8 @@ namespace UI
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
-        private System.Windows.Forms.Button btnColor;
-        private System.Windows.Forms.Button btnPrendas;
         private System.Windows.Forms.Label Precio;
         private System.Windows.Forms.NumericUpDown numPrecio;
-        private System.Windows.Forms.ComboBox cmbPrenda;
-        private System.Windows.Forms.ComboBox cmbColor;
-        private System.Windows.Forms.Label Prenda;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.RichTextBox txtDescripcion;
         private System.Windows.Forms.Button btnCancelar;
@@ -329,5 +323,11 @@ namespace UI
         private System.Windows.Forms.Panel pnlDatosProducto;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Prenda;
+        private System.Windows.Forms.ComboBox cmbColor;
+        private System.Windows.Forms.ComboBox cmbPrenda;
+        private System.Windows.Forms.Button btnPrendas;
+        private System.Windows.Forms.Button btnColor;
     }
 }

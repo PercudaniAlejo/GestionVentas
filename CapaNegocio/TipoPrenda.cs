@@ -90,7 +90,6 @@ namespace CapaNegocio
                     resultados.Add(new TipoPrenda(f.id, f.tipo));
                 }
             }
-
             return resultados;
         }
 

@@ -46,7 +46,6 @@ namespace CapaNegocio
         public override string ToString() {
             return string.Concat(tipo + " - " + colorName);
         }
-        
         public void Guardar() {
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
             eProducto prod = new eProducto();
@@ -61,7 +60,6 @@ namespace CapaNegocio
             }
             dc.SubmitChanges();
         }
-
         public void CargarFilaProducto(eProducto prod)
         {
             prod.id = this.IdProducto;
@@ -70,8 +68,7 @@ namespace CapaNegocio
             prod.idColor = this.colorName.Id;
             prod.idTipoPrenda = this.tipo.Id;
         }
-
-        public static IQueryable Buscar(string buscado) {
+        public static IQueryable BuscarIQ(string buscado) {
             buscado = buscado.ToLower();
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
             var filas = from x in dc.eProducto
@@ -89,7 +86,25 @@ namespace CapaNegocio
                         };
             return filas;
         }
+        public static List<Producto> Buscar(string buscado = "")
+        {
+            buscado = buscado.ToLower();
+            List<Producto> resultados = new List<Producto>();
+            DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
+            var filas = from x in dc.eProducto
+                        where x.id.ToString().Contains(buscado) ||
+                        x.precio.ToString().Contains(buscado)
+                        select x;
 
+            if (filas != null)
+            {
+                foreach (var f in filas)
+                {
+                    resultados.Add(new Producto(f.id, f.precio, f.descripcion, ColorPrenda.BuscarPorId(f.idColor), TipoPrenda.BuscarPorId(f.idTipoPrenda)));
+                }
+            }
+            return resultados;
+        }
         public void Eliminar()
         {
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());

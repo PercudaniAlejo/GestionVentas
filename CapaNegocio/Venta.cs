@@ -15,6 +15,7 @@ namespace CapaNegocio
         private DateTime fecha;
         private string observaciones;
         private double precio;
+        private Producto producto;
         #endregion
 
         #region PROPERTIES
@@ -24,10 +25,11 @@ namespace CapaNegocio
         public DateTime Fecha { get => fecha; set => fecha = value; }
         public string Observaciones { get => observaciones; set => observaciones = value; }
         public double Precio { get => precio; set => precio = value; }
+        public Producto Producto { get => producto; set => producto = value; }
         #endregion
 
         #region BUILDERS
-        public Venta(int idVenta, string nombreCliente, string apellidoCliente, DateTime fecha, string observaciones, double precio)
+        public Venta(int idVenta, string nombreCliente, string apellidoCliente, DateTime fecha, string observaciones, double precio, Producto producto)
         {
             this.idVenta = idVenta;
             this.nombreCliente = nombreCliente;
@@ -35,6 +37,7 @@ namespace CapaNegocio
             this.fecha = fecha;
             this.observaciones = observaciones;
             this.precio = precio;
+            this.producto = producto;
         }
 
         public Venta() {
@@ -44,6 +47,7 @@ namespace CapaNegocio
             fecha = DateTime.Today;
             observaciones = "";
             precio = 0.0;
+            producto = null;
         }
         #endregion
 
@@ -74,9 +78,10 @@ namespace CapaNegocio
             venta.fecha = this.Fecha;
             venta.observaciones = this.Observaciones;
             venta.precio = this.Precio;
+            venta.idProducto = this.Producto.IdProducto;
         }
 
-        public static IQueryable Buscar(string buscado)
+        public static IQueryable BuscarIQ(string buscado)
         {
             buscado = buscado.ToLower();
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
@@ -91,12 +96,33 @@ namespace CapaNegocio
                             ID = x.id,
                             Cliente = x.nombreCliente + ", " + x.apellidoCliente.ToUpper(),
                             Fecha = x.fecha,
+                            Producto = x.eProducto.eTipoPrenda.tipo + " " + x.eProducto.eColor.colorName,
                             Precio = "$ " + (int)x.precio,
                             Observaciones = x.observaciones
                         };
             return filas;
         }
+        public void Eliminar()
+        {
+            DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
+            var encontrado = (from x in dc.eVenta where x.id == this.idVenta select x).FirstOrDefault();
+            if (encontrado != null)
+            {
+                dc.eVenta.DeleteOnSubmit(encontrado);
+                dc.SubmitChanges();
+            }
+            else
+                throw new Exception("No se pudo eliminar la venta, el id " + this.idVenta + " no fue encontrado.");
+        }
 
+        public static Venta BuscarPorId(int idBuscado)
+        {
+            DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
+            var enc = (from x in dc.eVenta where x.id == idBuscado select x).FirstOrDefault();
+            if (enc != null)
+                return new Venta(enc.id, enc.nombreCliente, enc.apellidoCliente, enc.fecha, enc.observaciones, enc.precio, Producto.BuscarPorId(enc.idProducto));
+            return null;
+        }
         #endregion
     }
 }
