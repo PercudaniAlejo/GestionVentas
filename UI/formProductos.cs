@@ -124,7 +124,7 @@ namespace UI
             obj.ColorName = cmbColor.SelectedItem as ColorPrenda;
             obj.Tipo = cmbPrenda.SelectedItem as TipoPrenda;
             obj.Descipcion = txtDescripcion.Text;
-        }
+        } // PENDIENTE: QUE SE LLENA EL NUMPRECIO AUTOMATICAMENTE CON EL PRECIO DEL PRODUCTO
         private void CargarCMB() {
             cmbColor.DataSource = null;
             cmbColor.DataSource = ColorPrenda.Buscar();

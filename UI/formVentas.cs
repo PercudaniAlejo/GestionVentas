@@ -13,6 +13,7 @@ namespace UI
     public partial class formVentas : Form
     {
         private Venta obj;
+        private DetalleVenta objDetalle;
         public formVentas()
         {
             InitializeComponent();
@@ -27,6 +28,7 @@ namespace UI
         {
             LimpiarCampos();
             obj = new Venta();
+            objDetalle = new DetalleVenta();
             pnlDatosVenta.Enabled = true;
         }
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -60,6 +62,13 @@ namespace UI
             {
                 SetDatos();
                 obj.Guardar();
+
+                objDetalle.Producto = cmbProductos.SelectedItem as Producto;
+                //objDetalle.Venta = Venta.BuscarPorId(obj.IdVenta);
+                objDetalle.Venta = obj as Venta;
+                objDetalle.Precio = (int)numPrecio.Value;
+
+                objDetalle.Guardar();
                 MessageBox.Show("Nueva venta agregada correctamente.", "Venta registrada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 pnlDatosVenta.Enabled = false;
                 LimpiarCampos();
@@ -110,6 +119,24 @@ namespace UI
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void btnDetalle_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvVentas.CurrentRow != null)
+                {
+                    obj = Venta.BuscarPorId((int)dgvVentas.CurrentRow.Cells["ID"].Value);
+                    formDetalleVenta f = new formDetalleVenta(obj);
+                    f.ShowDialog();
+                }
+                else
+                    MessageBox.Show("Seleccione una fila.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         #region METHODS
         private void LimpiarCampos() {
@@ -130,7 +157,10 @@ namespace UI
             obj.Producto = cmbProductos.SelectedItem as Producto;
             obj.Fecha = dtpFecha.Value;
             obj.Precio = (int)numPrecio.Value;
+            //obj.Precio = (int)obj.Producto.Precio;
             obj.Observaciones = txtDescripcion.Text;
+
+
         }
         private void Buscar() {
             dgvVentas.DataSource = Venta.BuscarIQ(txtBuscar.Text);
@@ -144,9 +174,9 @@ namespace UI
             txtApellido.Text = obj.ApellidoCliente;
             dtpFecha.Value = obj.Fecha;
         }
+
+
         #endregion
-
-
 
     }
 }

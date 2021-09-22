@@ -18,8 +18,8 @@ namespace CapaNegocio
         #region PROPERTIES
         public int IdDetalleVenta { get => idDetalleVenta; set => idDetalleVenta = value; }
         public double Precio { get => precio; set => precio = value; }
-        internal Producto Producto { get => producto; set => producto = value; }
-        internal Venta Venta { get => venta; set => venta = value; }
+        public Producto Producto { get => producto; set => producto = value; }
+        public Venta Venta { get => venta; set => venta = value; }
         #endregion
 
         #region BUILDER
