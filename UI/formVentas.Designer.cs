@@ -51,14 +51,14 @@ namespace UI
             this.dgvVentas.Name = "dgvVentas";
             this.dgvVentas.RowHeadersWidth = 51;
             this.dgvVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVentas.Size = new System.Drawing.Size(382, 376);
+            this.dgvVentas.Size = new System.Drawing.Size(515, 376);
             this.dgvVentas.TabIndex = 1;
             // 
             // btnBuscar
             // 
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.Location = new System.Drawing.Point(343, 9);
+            this.btnBuscar.Location = new System.Drawing.Point(476, 9);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(27, 21);
             this.btnBuscar.TabIndex = 21;
@@ -68,7 +68,7 @@ namespace UI
             // 
             // txtBuscar
             // 
-            this.txtBuscar.Location = new System.Drawing.Point(176, 9);
+            this.txtBuscar.Location = new System.Drawing.Point(309, 9);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(161, 20);
             this.txtBuscar.TabIndex = 23;
@@ -127,7 +127,7 @@ namespace UI
             this.btnDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDetalle.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.btnDetalle.Location = new System.Drawing.Point(265, 446);
+            this.btnDetalle.Location = new System.Drawing.Point(398, 446);
             this.btnDetalle.Name = "btnDetalle";
             this.btnDetalle.Size = new System.Drawing.Size(105, 47);
             this.btnDetalle.TabIndex = 28;
@@ -139,7 +139,7 @@ namespace UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 515);
+            this.ClientSize = new System.Drawing.Size(515, 515);
             this.Controls.Add(this.btnDetalle);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);

@@ -36,7 +36,7 @@ namespace UI
                 {
                     Venta nv = new Venta(0, txtNombre.Text, txtApellido.Text, dtpFecha.Value,
                                          txtDescripcion.Text, (int)numPrecio.Value);
-                    DetalleVenta nuevoDetalle = new DetalleVenta(0, cmbProductos.SelectedItem as Producto, nv, (int)numPrecio.Value); ;
+                    DetalleVenta nuevoDetalle = new DetalleVenta(0, cmbProductos.SelectedItem as Producto, nv as Venta, (int)numPrecio.Value); ;
                     obj.DetalleList.Add(nuevoDetalle);
                     pnlDatosVenta.Enabled = false;
                     LimpiarCampos();
