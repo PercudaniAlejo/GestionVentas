@@ -15,7 +15,7 @@ namespace CapaNegocio
         private DateTime fecha;
         private string observaciones;
         private double precio;
-        private Producto producto;
+        private List<DetalleVenta> detalleList;
         #endregion
 
         #region PROPERTIES
@@ -25,11 +25,11 @@ namespace CapaNegocio
         public DateTime Fecha { get => fecha; set => fecha = value; }
         public string Observaciones { get => observaciones; set => observaciones = value; }
         public double Precio { get => precio; set => precio = value; }
-        public Producto Producto { get => producto; set => producto = value; }
+        public List<DetalleVenta> DetalleList { get => detalleList; set => detalleList = value; }
         #endregion
 
         #region BUILDERS
-        public Venta(int idVenta, string nombreCliente, string apellidoCliente, DateTime fecha, string observaciones, double precio, Producto producto)
+        public Venta(int idVenta, string nombreCliente, string apellidoCliente, DateTime fecha, string observaciones, double precio)
         {
             this.idVenta = idVenta;
             this.nombreCliente = nombreCliente;
@@ -37,7 +37,8 @@ namespace CapaNegocio
             this.fecha = fecha;
             this.observaciones = observaciones;
             this.precio = precio;
-            this.producto = producto;
+            this.detalleList = new List<DetalleVenta>();
+
         }
 
         public Venta() {
@@ -47,7 +48,7 @@ namespace CapaNegocio
             fecha = DateTime.Today;
             observaciones = "";
             precio = 0.0;
-            producto = null;
+            this.detalleList = new List<DetalleVenta>();
         }
         #endregion
 
@@ -61,6 +62,10 @@ namespace CapaNegocio
             {
                 CargarFilaVenta(venta);
                 dc.eVenta.InsertOnSubmit(venta);
+                foreach (DetalleVenta dv in detalleList)
+                {
+                    dv.Guardar(dc, venta);
+                }
             }
             else
             {
@@ -78,7 +83,6 @@ namespace CapaNegocio
             venta.fecha = this.Fecha;
             venta.observaciones = this.Observaciones;
             venta.precio = this.Precio;
-            venta.idProducto = this.Producto.IdProducto;
         }
 
         public static IQueryable BuscarIQ(string buscado)
@@ -96,7 +100,6 @@ namespace CapaNegocio
                             ID = x.id,
                             Cliente = x.nombreCliente + ", " + x.apellidoCliente.ToUpper(),
                             Fecha = x.fecha,
-                            Producto = x.eProducto.eTipoPrenda.tipo + " " + x.eProducto.eColor.colorName,
                             Precio = "$ " + (int)x.precio,
                             Observaciones = x.observaciones
                         };
@@ -120,7 +123,7 @@ namespace CapaNegocio
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
             var enc = (from x in dc.eVenta where x.id == idBuscado select x).FirstOrDefault();
             if (enc != null)
-                return new Venta(enc.id, enc.nombreCliente, enc.apellidoCliente, enc.fecha, enc.observaciones, enc.precio, Producto.BuscarPorId(enc.idProducto));
+                return new Venta(enc.id, enc.nombreCliente, enc.apellidoCliente, enc.fecha, enc.observaciones, enc.precio);
             return null;
         }
         #endregion

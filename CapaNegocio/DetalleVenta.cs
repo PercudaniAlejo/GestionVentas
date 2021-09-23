@@ -41,14 +41,17 @@ namespace CapaNegocio
         #endregion
 
         #region METHODS
-        public void Guardar()
+        public void Guardar(DCDataContext dcOriginal, eVenta eV)
         {
-            DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
+            DCDataContext dc = dcOriginal;
             eDetalleVenta detalle = new eDetalleVenta();
 
             if (this.idDetalleVenta == 0)
             {
-                CargarFilaDetalle(detalle);
+                detalle.id = this.IdDetalleVenta;
+                detalle.eVenta = eV;
+                detalle.idProducto = this.Producto.IdProducto;
+                detalle.precio = this.Precio;
                 dc.eDetalleVenta.InsertOnSubmit(detalle);
             }
             else
@@ -64,6 +67,8 @@ namespace CapaNegocio
             detalle.idProducto = this.producto.IdProducto;
             detalle.idVenta = this.venta.IdVenta;
             detalle.precio = this.Precio;
+
+
         }
         public static IQueryable Buscar(string buscado)
         {

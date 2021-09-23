@@ -136,11 +136,7 @@ namespace CapaDatos
 		
 		private string _apellidoCliente;
 		
-		private int _idProducto;
-		
 		private EntitySet<eDetalleVenta> _DetalleVenta;
-		
-		private EntityRef<eProducto> _Producto;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -158,14 +154,11 @@ namespace CapaDatos
     partial void OnprecioChanged();
     partial void OnapellidoClienteChanging(string value);
     partial void OnapellidoClienteChanged();
-    partial void OnidProductoChanging(int value);
-    partial void OnidProductoChanged();
     #endregion
 		
 		public eVenta()
 		{
 			this._DetalleVenta = new EntitySet<eDetalleVenta>(new Action<eDetalleVenta>(this.attach_DetalleVenta), new Action<eDetalleVenta>(this.detach_DetalleVenta));
-			this._Producto = default(EntityRef<eProducto>);
 			OnCreated();
 		}
 		
@@ -289,31 +282,7 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idProducto", DbType="Int NOT NULL")]
-		public int idProducto
-		{
-			get
-			{
-				return this._idProducto;
-			}
-			set
-			{
-				if ((this._idProducto != value))
-				{
-					if (this._Producto.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnidProductoChanging(value);
-					this.SendPropertyChanging();
-					this._idProducto = value;
-					this.SendPropertyChanged("idProducto");
-					this.OnidProductoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_DetalleVenta", Storage="_DetalleVenta", ThisKey="id", OtherKey="idVenta")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="eVenta_eDetalleVenta", Storage="_DetalleVenta", ThisKey="id", OtherKey="idVenta")]
 		public EntitySet<eDetalleVenta> eDetalleVenta
 		{
 			get
@@ -323,40 +292,6 @@ namespace CapaDatos
 			set
 			{
 				this._DetalleVenta.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_Venta", Storage="_Producto", ThisKey="idProducto", OtherKey="id", IsForeignKey=true)]
-		public eProducto eProducto
-		{
-			get
-			{
-				return this._Producto.Entity;
-			}
-			set
-			{
-				eProducto previousValue = this._Producto.Entity;
-				if (((previousValue != value) 
-							|| (this._Producto.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Producto.Entity = null;
-						previousValue.eVenta.Remove(this);
-					}
-					this._Producto.Entity = value;
-					if ((value != null))
-					{
-						value.eVenta.Add(this);
-						this._idProducto = value.id;
-					}
-					else
-					{
-						this._idProducto = default(int);
-					}
-					this.SendPropertyChanged("eProducto");
-				}
 			}
 		}
 		
@@ -461,7 +396,7 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Color_Producto", Storage="_Producto", ThisKey="id", OtherKey="idColor")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="eColor_eProducto", Storage="_Producto", ThisKey="id", OtherKey="idColor")]
 		public EntitySet<eProducto> eProducto
 		{
 			get
@@ -634,7 +569,7 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Venta_DetalleVenta", Storage="_Venta", ThisKey="idVenta", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="eVenta_eDetalleVenta", Storage="_Venta", ThisKey="idVenta", OtherKey="id", IsForeignKey=true)]
 		public eVenta eVenta
 		{
 			get
@@ -668,7 +603,7 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DetalleVenta", Storage="_Producto", ThisKey="idProducto", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="eProducto_eDetalleVenta", Storage="_Producto", ThisKey="idProducto", OtherKey="id", IsForeignKey=true)]
 		public eProducto eProducto
 		{
 			get
@@ -739,8 +674,6 @@ namespace CapaDatos
 		
 		private int _idTipoPrenda;
 		
-		private EntitySet<eVenta> _Venta;
-		
 		private EntitySet<eDetalleVenta> _DetalleVenta;
 		
 		private EntityRef<eColor> _Color;
@@ -765,7 +698,6 @@ namespace CapaDatos
 		
 		public eProducto()
 		{
-			this._Venta = new EntitySet<eVenta>(new Action<eVenta>(this.attach_Venta), new Action<eVenta>(this.detach_Venta));
 			this._DetalleVenta = new EntitySet<eDetalleVenta>(new Action<eDetalleVenta>(this.attach_DetalleVenta), new Action<eDetalleVenta>(this.detach_DetalleVenta));
 			this._Color = default(EntityRef<eColor>);
 			this._TipoPrenda = default(EntityRef<eTipoPrenda>);
@@ -880,20 +812,7 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_Venta", Storage="_Venta", ThisKey="id", OtherKey="idProducto")]
-		public EntitySet<eVenta> eVenta
-		{
-			get
-			{
-				return this._Venta;
-			}
-			set
-			{
-				this._Venta.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Producto_DetalleVenta", Storage="_DetalleVenta", ThisKey="id", OtherKey="idProducto")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="eProducto_eDetalleVenta", Storage="_DetalleVenta", ThisKey="id", OtherKey="idProducto")]
 		public EntitySet<eDetalleVenta> eDetalleVenta
 		{
 			get
@@ -906,7 +825,7 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Color_Producto", Storage="_Color", ThisKey="idColor", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="eColor_eProducto", Storage="_Color", ThisKey="idColor", OtherKey="id", IsForeignKey=true)]
 		public eColor eColor
 		{
 			get
@@ -940,7 +859,7 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TipoPrenda_Producto", Storage="_TipoPrenda", ThisKey="idTipoPrenda", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="eTipoPrenda_eProducto", Storage="_TipoPrenda", ThisKey="idTipoPrenda", OtherKey="id", IsForeignKey=true)]
 		public eTipoPrenda eTipoPrenda
 		{
 			get
@@ -992,18 +911,6 @@ namespace CapaDatos
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Venta(eVenta entity)
-		{
-			this.SendPropertyChanging();
-			entity.eProducto = this;
-		}
-		
-		private void detach_Venta(eVenta entity)
-		{
-			this.SendPropertyChanging();
-			entity.eProducto = null;
 		}
 		
 		private void attach_DetalleVenta(eDetalleVenta entity)
@@ -1087,7 +994,7 @@ namespace CapaDatos
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TipoPrenda_Producto", Storage="_Producto", ThisKey="id", OtherKey="idTipoPrenda")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="eTipoPrenda_eProducto", Storage="_Producto", ThisKey="id", OtherKey="idTipoPrenda")]
 		public EntitySet<eProducto> eProducto
 		{
 			get

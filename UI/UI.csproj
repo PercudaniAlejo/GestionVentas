@@ -62,6 +62,12 @@
     <Compile Include="formInicial.Designer.cs">
       <DependentUpon>formInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="formNuevaVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formNuevaVenta.Designer.cs">
+      <DependentUpon>formNuevaVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="formPrendas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formInicial.resx">
       <DependentUpon>formInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formNuevaVenta.resx">
+      <DependentUpon>formNuevaVenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formPrendas.resx">
       <DependentUpon>formPrendas.cs</DependentUpon>
