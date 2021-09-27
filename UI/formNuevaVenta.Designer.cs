@@ -31,14 +31,8 @@ namespace UI
         {
             this.pnlDatosVenta = new System.Windows.Forms.Panel();
             this.btnNuevoProducto = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbProductos = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtApellido = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtNombre = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.txtDescripcion = new System.Windows.Forms.RichTextBox();
@@ -51,6 +45,12 @@ namespace UI
             this.btnCancelarVenta = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtNombre = new System.Windows.Forms.TextBox();
             this.pnlDatosVenta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
@@ -59,14 +59,8 @@ namespace UI
             // pnlDatosVenta
             // 
             this.pnlDatosVenta.Controls.Add(this.btnNuevoProducto);
-            this.pnlDatosVenta.Controls.Add(this.label6);
-            this.pnlDatosVenta.Controls.Add(this.dtpFecha);
             this.pnlDatosVenta.Controls.Add(this.label5);
             this.pnlDatosVenta.Controls.Add(this.cmbProductos);
-            this.pnlDatosVenta.Controls.Add(this.label4);
-            this.pnlDatosVenta.Controls.Add(this.txtApellido);
-            this.pnlDatosVenta.Controls.Add(this.label2);
-            this.pnlDatosVenta.Controls.Add(this.txtNombre);
             this.pnlDatosVenta.Controls.Add(this.label1);
             this.pnlDatosVenta.Controls.Add(this.btnCancelar);
             this.pnlDatosVenta.Controls.Add(this.txtDescripcion);
@@ -74,43 +68,26 @@ namespace UI
             this.pnlDatosVenta.Controls.Add(this.numPrecio);
             this.pnlDatosVenta.Controls.Add(this.Precio);
             this.pnlDatosVenta.Enabled = false;
-            this.pnlDatosVenta.Location = new System.Drawing.Point(-1, 46);
+            this.pnlDatosVenta.Location = new System.Drawing.Point(-2, 155);
             this.pnlDatosVenta.Name = "pnlDatosVenta";
-            this.pnlDatosVenta.Size = new System.Drawing.Size(385, 178);
+            this.pnlDatosVenta.Size = new System.Drawing.Size(385, 132);
             this.pnlDatosVenta.TabIndex = 25;
             // 
             // btnNuevoProducto
             // 
             this.btnNuevoProducto.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnNuevoProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNuevoProducto.Location = new System.Drawing.Point(145, 104);
+            this.btnNuevoProducto.Location = new System.Drawing.Point(148, 15);
             this.btnNuevoProducto.Name = "btnNuevoProducto";
             this.btnNuevoProducto.Size = new System.Drawing.Size(27, 21);
             this.btnNuevoProducto.TabIndex = 28;
             this.btnNuevoProducto.Text = "+";
             this.btnNuevoProducto.UseVisualStyleBackColor = true;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 133);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 13);
-            this.label6.TabIndex = 28;
-            this.label6.Text = "Fecha";
-            // 
-            // dtpFecha
-            // 
-            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFecha.Location = new System.Drawing.Point(14, 150);
-            this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(125, 20);
-            this.dtpFecha.TabIndex = 27;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 88);
+            this.label5.Location = new System.Drawing.Point(14, -1);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 26;
@@ -119,47 +96,15 @@ namespace UI
             // cmbProductos
             // 
             this.cmbProductos.FormattingEnabled = true;
-            this.cmbProductos.Location = new System.Drawing.Point(14, 104);
+            this.cmbProductos.Location = new System.Drawing.Point(17, 15);
             this.cmbProductos.Name = "cmbProductos";
             this.cmbProductos.Size = new System.Drawing.Size(125, 21);
             this.cmbProductos.TabIndex = 25;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 44);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 13);
-            this.label4.TabIndex = 24;
-            this.label4.Text = "Apellido del cliente";
-            // 
-            // txtApellido
-            // 
-            this.txtApellido.Location = new System.Drawing.Point(14, 61);
-            this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(125, 20);
-            this.txtApellido.TabIndex = 23;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 13);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Nombre del cliente";
-            // 
-            // txtNombre
-            // 
-            this.txtNombre.Location = new System.Drawing.Point(14, 17);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(125, 20);
-            this.txtNombre.TabIndex = 21;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(206, 43);
+            this.label1.Location = new System.Drawing.Point(202, -2);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 17;
@@ -169,7 +114,7 @@ namespace UI
             // 
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.btnCancelar.Location = new System.Drawing.Point(209, 133);
+            this.btnCancelar.Location = new System.Drawing.Point(209, 93);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(74, 37);
             this.btnCancelar.TabIndex = 16;
@@ -180,7 +125,7 @@ namespace UI
             // txtDescripcion
             // 
             this.txtDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDescripcion.Location = new System.Drawing.Point(209, 59);
+            this.txtDescripcion.Location = new System.Drawing.Point(205, 14);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.txtDescripcion.Size = new System.Drawing.Size(155, 68);
@@ -191,7 +136,7 @@ namespace UI
             // 
             this.btnAgregarVenta.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnAgregarVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.btnAgregarVenta.Location = new System.Drawing.Point(290, 133);
+            this.btnAgregarVenta.Location = new System.Drawing.Point(290, 93);
             this.btnAgregarVenta.Name = "btnAgregarVenta";
             this.btnAgregarVenta.Size = new System.Drawing.Size(74, 37);
             this.btnAgregarVenta.TabIndex = 13;
@@ -201,7 +146,7 @@ namespace UI
             // 
             // numPrecio
             // 
-            this.numPrecio.Location = new System.Drawing.Point(209, 18);
+            this.numPrecio.Location = new System.Drawing.Point(17, 62);
             this.numPrecio.Maximum = new decimal(new int[] {
             99999999,
             0,
@@ -214,7 +159,7 @@ namespace UI
             // Precio
             // 
             this.Precio.AutoSize = true;
-            this.Precio.Location = new System.Drawing.Point(206, 0);
+            this.Precio.Location = new System.Drawing.Point(14, 44);
             this.Precio.Name = "Precio";
             this.Precio.Size = new System.Drawing.Size(37, 13);
             this.Precio.TabIndex = 7;
@@ -225,10 +170,10 @@ namespace UI
             this.dgvVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvVentas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVentas.Location = new System.Drawing.Point(-1, 224);
+            this.dgvVentas.Location = new System.Drawing.Point(-2, 291);
             this.dgvVentas.Name = "dgvVentas";
             this.dgvVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvVentas.Size = new System.Drawing.Size(385, 155);
+            this.dgvVentas.Size = new System.Drawing.Size(385, 88);
             this.dgvVentas.TabIndex = 29;
             // 
             // btnNuevo
@@ -288,11 +233,66 @@ namespace UI
             this.label7.TabIndex = 29;
             this.label7.Text = "NUEVA VENTA";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 98);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(37, 13);
+            this.label6.TabIndex = 38;
+            this.label6.Text = "Fecha";
+            // 
+            // dtpFecha
+            // 
+            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFecha.Location = new System.Drawing.Point(15, 114);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(125, 20);
+            this.dtpFecha.TabIndex = 37;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(200, 46);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "Apellido del cliente";
+            // 
+            // txtApellido
+            // 
+            this.txtApellido.Location = new System.Drawing.Point(203, 63);
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(125, 20);
+            this.txtApellido.TabIndex = 35;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 46);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 13);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "Nombre del cliente";
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Location = new System.Drawing.Point(15, 63);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(125, 20);
+            this.txtNombre.TabIndex = 33;
+            // 
             // formNuevaVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 476);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.dtpFecha);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtApellido);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnCancelarVenta);
@@ -302,6 +302,7 @@ namespace UI
             this.Controls.Add(this.pnlDatosVenta);
             this.Name = "formNuevaVenta";
             this.Text = "formNuevaVenta";
+            this.Load += new System.EventHandler(this.formNuevaVenta_Load);
             this.pnlDatosVenta.ResumeLayout(false);
             this.pnlDatosVenta.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPrecio)).EndInit();
@@ -315,14 +316,8 @@ namespace UI
 
         private System.Windows.Forms.Panel pnlDatosVenta;
         private System.Windows.Forms.Button btnNuevoProducto;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbProductos;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtApellido;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.RichTextBox txtDescripcion;
@@ -335,5 +330,11 @@ namespace UI
         private System.Windows.Forms.Button btnCancelarVenta;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dtpFecha;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtApellido;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtNombre;
     }
 }

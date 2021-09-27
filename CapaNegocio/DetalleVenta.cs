@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using CapaDatos;
@@ -16,9 +17,11 @@ namespace CapaNegocio
         #endregion
 
         #region PROPERTIES
+        [Browsable(false)]
         public int IdDetalleVenta { get => idDetalleVenta; set => idDetalleVenta = value; }
         public double Precio { get => precio; set => precio = value; }
         public Producto Producto { get => producto; set => producto = value; }
+        [Browsable(false)]
         public Venta Venta { get => venta; set => venta = value; }
         #endregion
 
@@ -48,7 +51,6 @@ namespace CapaNegocio
 
             if (this.idDetalleVenta == 0)
             {
-                detalle.id = this.IdDetalleVenta;
                 detalle.eVenta = eV;
                 detalle.idProducto = this.Producto.IdProducto;
                 detalle.precio = this.Precio;
@@ -57,20 +59,13 @@ namespace CapaNegocio
             else
             {
                 detalle = (from x in dc.eDetalleVenta where x.id == this.idDetalleVenta select x).FirstOrDefault();
-                CargarFilaDetalle(detalle);
+                
+                detalle.idProducto = this.producto.IdProducto;
+                detalle.idVenta = this.venta.IdVenta;
+                detalle.precio = this.Precio;
             }
-            dc.SubmitChanges();
         }
-        public void CargarFilaDetalle(eDetalleVenta detalle)
-        {
-            detalle.id = this.IdDetalleVenta;
-            detalle.idProducto = this.producto.IdProducto;
-            detalle.idVenta = this.venta.IdVenta;
-            detalle.precio = this.Precio;
-
-
-        }
-        public static IQueryable Buscar(string buscado)
+        public static IQueryable BuscarIQ(string buscado)
         {
             buscado = buscado.ToLower();
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
@@ -90,6 +85,28 @@ namespace CapaNegocio
                             Precio = "$ " + (int)x.precio,
                         };
             return filas;
+        }
+
+        public static List<DetalleVenta> Buscar(int idVenta)
+        {
+            List<DetalleVenta> resultados = new List<DetalleVenta>();
+
+            DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
+
+            var filas = from x in dc.eDetalleVenta
+                        where x.idVenta == idVenta
+                        select x;
+
+            if (filas != null)
+            {
+                foreach (var f in filas)
+                {
+                    resultados.Add(new DetalleVenta(f.id, Producto.BuscarPorId(f.idProducto), Venta.BuscarPorId(f.idVenta), f.precio));
+                }
+            }
+
+            return resultados;
+
         }
         #endregion
     }

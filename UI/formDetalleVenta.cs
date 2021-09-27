@@ -27,9 +27,9 @@ namespace UI
             txtNombre.Text = objV.NombreCliente;
             txtApellido.Text = objV.ApellidoCliente;
 
-            numPrecioUnitario.Value = (int)objV.Producto.Precio;
-            cmbPrenda.Text = objV.Producto.Tipo.ToString();
-            cmbColor.Text = objV.Producto.ColorName.ToString();
+            numPrecioUnitario.Value = (int)objDetalle.Producto.Precio;
+            cmbPrenda.Text = objDetalle.Producto.Tipo.ToString();
+            cmbColor.Text = objDetalle.Producto.ColorName.ToString();
 
             dtpFecha.Value = objV.Fecha;
             numPrecioFinal.Value = (int)objV.Precio;
@@ -44,11 +44,11 @@ namespace UI
         #region METHODS
         private void Buscar(){
             dgvDetalles.DataSource = null;
-            dgvDetalles.DataSource = DetalleVenta.Buscar("");
+            dgvDetalles.DataSource = DetalleVenta.BuscarIQ("");
         }
 
         private void SetDatos() {
-            objDetalle.Producto = objV.Producto;
+            objDetalle.Producto = objDetalle.Producto;
         }
         #endregion
     }

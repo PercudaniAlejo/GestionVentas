@@ -71,13 +71,16 @@ namespace CapaNegocio
             {
                 venta = (from x in dc.eVenta where x.id == this.idVenta select x).FirstOrDefault();
                 CargarFilaVenta(venta);
+                foreach (DetalleVenta dv in detalleList)
+                {
+                    dv.Guardar(dc, venta);
+                }
             }
             dc.SubmitChanges();
         }
 
         public void CargarFilaVenta(eVenta venta)
         {
-            venta.id = this.IdVenta;
             venta.nombreCliente = this.NombreCliente;
             venta.apellidoCliente = this.ApellidoCliente;
             venta.fecha = this.Fecha;
@@ -89,6 +92,14 @@ namespace CapaNegocio
         {
             buscado = buscado.ToLower();
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
+            var sumaPrecio = from x in dc.eDetalleVenta
+                             group x by x.idVenta into Precio
+                             select new
+                             {
+                                 Precio = Precio.Sum(x => x.precio)
+                             };
+
+
             var filas = from x in dc.eVenta
                         where x.id.ToString().Contains(buscado) ||
                         x.nombreCliente.Contains(buscado) ||
@@ -100,9 +111,12 @@ namespace CapaNegocio
                             ID = x.id,
                             Cliente = x.nombreCliente + ", " + x.apellidoCliente.ToUpper(),
                             Fecha = x.fecha,
-                            Precio = "$ " + (int)x.precio,
+                            Precio = "$ " + sumaPrecio,
+                            // ARREGLAR ACÁ
                             Observaciones = x.observaciones
                         };
+
+            //return sumaPrecio;
             return filas;
         }
         public void Eliminar()
@@ -126,6 +140,8 @@ namespace CapaNegocio
                 return new Venta(enc.id, enc.nombreCliente, enc.apellidoCliente, enc.fecha, enc.observaciones, enc.precio);
             return null;
         }
+
+
         #endregion
     }
 }

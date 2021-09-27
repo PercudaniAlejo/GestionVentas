@@ -13,43 +13,49 @@ namespace UI
     public partial class formNuevaVenta : Form
     {
         private Venta obj;
-        private DetalleVenta objDetalle;
+        
+        //private DetalleVenta objDetalle;
         public formNuevaVenta(Venta objVenta = null)
         {
             InitializeComponent();
             obj = objVenta;
             CargarCMB();
+            
         }
-        private void btnNuevo_Click(object sender, EventArgs e)
+        DetalleVenta objDetalle;
+        private void formNuevaVenta_Load(object sender, EventArgs e)
         {
-            pnlDatosVenta.Enabled = true;
-            obj = new Venta();
+            if (obj != null)
+                CargarDatosModificar(obj);
         }
         private void btnAgregarVenta_Click(object sender, EventArgs e)
         {
-            if (obj.IdVenta == 0)
+            if (objDetalle.IdDetalleVenta == 0)
             {
                 if (numPrecio.Value != 0 &&
                     cmbProductos.Text != "Productos..." &&
                     txtNombre.Text != "" &&
                     txtApellido.Text != "")
                 {
-                    Venta nv = new Venta(0, txtNombre.Text, txtApellido.Text, dtpFecha.Value,
-                                         txtDescripcion.Text, (int)numPrecio.Value);
-                    DetalleVenta nuevoDetalle = new DetalleVenta(0, cmbProductos.SelectedItem as Producto, nv as Venta, (int)numPrecio.Value); ;
+                    DetalleVenta nuevoDetalle = new DetalleVenta(0, cmbProductos.SelectedItem as Producto, obj, (int)numPrecio.Value); ;
                     obj.DetalleList.Add(nuevoDetalle);
-                    pnlDatosVenta.Enabled = false;
                     LimpiarCampos();
                 }
                 else
                     MessageBox.Show("Completar campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
+            else 
             {
-                SetDatos();
+                objDetalle.Producto = cmbProductos.SelectedItem as Producto;
+                objDetalle.Precio = (int)numPrecio.Value;
             }
             pnlDatosVenta.Enabled = false;
             Buscar();
+        }
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            objDetalle = new DetalleVenta();
+            pnlDatosVenta.Enabled = true;
         }
         private void btnCancelarVenta_Click(object sender, EventArgs e)
         {
@@ -60,16 +66,23 @@ namespace UI
             pnlDatosVenta.Enabled = false;
             LimpiarCampos();
         }
+        private void btnCargarVenta_Click(object sender, EventArgs e)
+        {
+            SetDatos();
+            obj.Guardar();
+            MessageBox.Show("Guardado correctamente", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            pnlDatosVenta.Enabled = false;
+            this.Close();
+        }
 
         #region METHODS
         private void SetDatos() {
-            objDetalle.Venta.NombreCliente = txtNombre.Text;
-            objDetalle.Venta.ApellidoCliente = txtApellido.Text;
-            objDetalle.Venta.Fecha = dtpFecha.Value;
-            objDetalle.Venta.Precio = (int)numPrecio.Value;
-            objDetalle.Venta.Observaciones = txtDescripcion.Text;
-            objDetalle.Producto = cmbProductos.SelectedItem as Producto;
-
+            obj.NombreCliente = txtNombre.Text;
+            obj.ApellidoCliente = txtApellido.Text;
+            obj.Fecha = dtpFecha.Value;
+            obj.Observaciones = txtDescripcion.Text;
+            obj.Precio = (int)numPrecio.Value;
         }
         private void LimpiarCampos() {
             dtpFecha.Value = DateTime.Now;
@@ -85,16 +98,16 @@ namespace UI
             dgvVentas.DataSource = null;
             dgvVentas.DataSource = obj.DetalleList;
         }
+        private void CargarDatosModificar(Venta obj)
+        {
+            txtNombre.Text = obj.NombreCliente;
+            txtApellido.Text = obj.ApellidoCliente;
+            numPrecio.Value = (int)obj.Precio;
+            dtpFecha.Value = obj.Fecha;
+            dgvVentas.DataSource = null;
+            dgvVentas.DataSource = obj.DetalleList;
+        }
         #endregion
 
-        private void btnCargarVenta_Click(object sender, EventArgs e)
-        {
-            SetDatos();
-            obj.Guardar();
-            MessageBox.Show("Guardado correctamente", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            pnlDatosVenta.Enabled = false;
-            Buscar();
-        }
     }
 }

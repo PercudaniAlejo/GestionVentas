@@ -24,8 +24,7 @@ namespace UI
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            obj = null;
-
+            obj = new Venta(); ;
             formNuevaVenta f = new formNuevaVenta(obj);
             f.ShowDialog();
             Buscar();
@@ -50,12 +49,13 @@ namespace UI
             {
                 if (dgvVentas.CurrentRow != null)
                 {
-                    Venta v = Venta.BuscarPorId((int)dgvVentas.CurrentRow.Cells["ID"].Value);
+                    Venta v = null;
+                    v = Venta.BuscarPorId((int)dgvVentas.CurrentRow.Cells["ID"].Value);
                     if (MessageBox.Show("Eliminar la venta con ID: " + v.IdVenta, "Eliminar", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         v.Eliminar();
-                        MessageBox.Show("Venta eliminada correctamente", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Buscar();
+                        MessageBox.Show("Venta eliminada correctamente", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
@@ -68,20 +68,11 @@ namespace UI
         }
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (dgvVentas.CurrentRow != null)
-                {
-                    obj = Venta.BuscarPorId((int)dgvVentas.CurrentRow.Cells["ID"].Value);
-                    SetDatosModificar();
-                }
-                else
-                    MessageBox.Show("Debe seleccionar una fila antes de modificar", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            obj = Seleccionado();
+            obj.DetalleList = DetalleVenta.Buscar(obj.IdVenta);
+            formNuevaVenta dv = new formNuevaVenta(obj);
+            dv.ShowDialog();
+            Buscar();
         }
         private void btnDetalle_Click(object sender, EventArgs e)
         {
@@ -103,6 +94,14 @@ namespace UI
         }
 
         #region METHODS
+        private Venta Seleccionado() {
+            if (dgvVentas.CurrentRow != null)
+            {
+                obj = Venta.BuscarPorId((int)dgvVentas.CurrentRow.Cells["ID"].Value);
+                return obj;
+            }
+            return null;
+        }
         private void Buscar() {
             dgvVentas.DataSource = Venta.BuscarIQ(txtBuscar.Text);
         }
