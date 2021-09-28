@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using CapaDatos;
@@ -93,15 +95,19 @@ namespace CapaNegocio
             buscado = buscado.ToLower();
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());
             var sumaPrecio = from x in dc.eDetalleVenta
-                             group x by x.idVenta into Precio
+                             where x.id.ToString().Contains(buscado)
+                             group x by x.idVenta into Detalle
                              select new
                              {
-                                 Precio = Precio.Sum(x => x.precio)
+                                 Precio = Detalle.Sum(x => x.precio)
                              };
 
 
-            var filas = from x in dc.eVenta
-                        where x.id.ToString().Contains(buscado) ||
+            var filas = (from x in dc.eVenta
+                         join y in dc.eDetalleVenta
+                         on x.id equals y.idVenta
+                        where x.id == y.idVenta &&
+                        x.id.ToString().Contains(buscado) ||
                         x.nombreCliente.Contains(buscado) ||
                         x.apellidoCliente.Contains(buscado) ||
                         x.fecha.ToString().Contains(buscado) ||
@@ -111,14 +117,51 @@ namespace CapaNegocio
                             ID = x.id,
                             Cliente = x.nombreCliente + ", " + x.apellidoCliente.ToUpper(),
                             Fecha = x.fecha,
-                            Precio = "$ " + sumaPrecio,
+                            //Precio = "$ " + sumaPrecio,
+                            Precio = y.precio,
                             // ARREGLAR ACÁ
                             Observaciones = x.observaciones
-                        };
+                        });
 
             //return sumaPrecio;
             return filas;
         }
+
+        public static DataTable BuscarDT(string buscado)
+        {
+            SqlConnection sqlConn = new SqlConnection(Conexion.DarStrConexion());
+            try
+            {
+                sqlConn.Open();
+                SqlDataAdapter adapter;
+                DataSet ds = new DataSet();
+
+                string consulta =
+                    string.Concat("SELECT v.id 'ID', v.nombreCliente 'Nombre del cliente', " +
+                                    "v.apellidoCliente 'Apellido del cliente', " +
+                                    "v.fecha 'Fecha', SUM(dv.precio) 'Total' " +
+                                    "FROM Venta v " +
+                                    "INNER JOIN DetalleVenta dv ON v.id = dv.idVenta " +
+                                    "WHERE v.nombreCliente like '%", buscado, "%' or v.apellidoCliente like '%", buscado, "%' " +
+                                    "or v.fecha like '%", buscado, "%' or dv.precio like '%", buscado, "%' " +
+                                    "GROUP BY v.nombreCliente, v.id, v.apellidoCliente, v.fecha");
+
+                adapter = new SqlDataAdapter(consulta, sqlConn);
+
+                adapter.Fill(ds);
+                return ds.Tables[0];
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                sqlConn.Close();
+                sqlConn.Dispose();
+            }
+        }
+
         public void Eliminar()
         {
             DCDataContext dc = new DCDataContext(Conexion.DarStrConexion());

@@ -36,7 +36,6 @@ namespace UI
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.btnDetalle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,25 +121,11 @@ namespace UI
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // btnDetalle
-            // 
-            this.btnDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDetalle.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.btnDetalle.Location = new System.Drawing.Point(398, 446);
-            this.btnDetalle.Name = "btnDetalle";
-            this.btnDetalle.Size = new System.Drawing.Size(105, 47);
-            this.btnDetalle.TabIndex = 28;
-            this.btnDetalle.Text = "Detalle";
-            this.btnDetalle.UseVisualStyleBackColor = true;
-            this.btnDetalle.Click += new System.EventHandler(this.btnDetalle_Click);
-            // 
             // formVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(515, 515);
-            this.Controls.Add(this.btnDetalle);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAgregar);
@@ -168,6 +153,5 @@ namespace UI
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnAgregar;
-        private System.Windows.Forms.Button btnDetalle;
     }
 }

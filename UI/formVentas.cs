@@ -74,25 +74,6 @@ namespace UI
             dv.ShowDialog();
             Buscar();
         }
-        private void btnDetalle_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (dgvVentas.CurrentRow != null)
-                {
-                    obj = Venta.BuscarPorId((int)dgvVentas.CurrentRow.Cells["ID"].Value);
-                    formDetalleVenta f = new formDetalleVenta(obj);
-                    f.ShowDialog();
-                }
-                else
-                    MessageBox.Show("Seleccione una fila.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         #region METHODS
         private Venta Seleccionado() {
             if (dgvVentas.CurrentRow != null)
@@ -103,7 +84,11 @@ namespace UI
             return null;
         }
         private void Buscar() {
-            dgvVentas.DataSource = Venta.BuscarIQ(txtBuscar.Text);
+
+            //dgvVentas.DataSource = Venta.BuscarIQ(txtBuscar.Text);
+            //DT
+            dgvVentas.DataSource = null;
+            dgvVentas.DataSource = Venta.BuscarDT(txtBuscar.Text);
         }
         #endregion
     }
