@@ -50,12 +50,6 @@
     <Compile Include="formColor.Designer.cs">
       <DependentUpon>formColor.cs</DependentUpon>
     </Compile>
-    <Compile Include="formDetalleVenta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formDetalleVenta.Designer.cs">
-      <DependentUpon>formDetalleVenta.cs</DependentUpon>
-    </Compile>
     <Compile Include="formInicial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,9 +84,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="formColor.resx">
       <DependentUpon>formColor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formDetalleVenta.resx">
-      <DependentUpon>formDetalleVenta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formInicial.resx">
       <DependentUpon>formInicial.cs</DependentUpon>

@@ -41,6 +41,8 @@ namespace UI
             // 
             // dgvVentas
             // 
+            this.dgvVentas.AllowUserToAddRows = false;
+            this.dgvVentas.AllowUserToDeleteRows = false;
             this.dgvVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -48,6 +50,7 @@ namespace UI
             this.dgvVentas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvVentas.Location = new System.Drawing.Point(0, 44);
             this.dgvVentas.Name = "dgvVentas";
+            this.dgvVentas.ReadOnly = true;
             this.dgvVentas.RowHeadersWidth = 51;
             this.dgvVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvVentas.Size = new System.Drawing.Size(515, 376);

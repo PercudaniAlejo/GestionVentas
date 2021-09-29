@@ -7,8 +7,8 @@ namespace CapaDatos
 {
     public static class Conexion
     {
-        //private static string server = @"PC94\SQLEXPRESS";
-        private static string server = @"DESKTOP-RR1BBOV\SQLEXPRESS";
+        private static string server = @"PC94\SQLEXPRESS";
+        //private static string server = @"DESKTOP-RR1BBOV\SQLEXPRESS";
         private static string db = @"GestionVentas";
         private static string usuario = @"AlejoDB";
         private static string clave = @"alejo3898";
